@@ -12,3 +12,8 @@ type(name)
 
 #API key with name variable
 br.get('http://www.omdbapi.com/?t='+name+'&apikey=5a902c4d')
+
+#API key with name variable - themoviedb
+br.get('https://api.themoviedb.org/3/movie/550?api_key=da097a759910eefff9e3098e9e3d3870')
+
+
