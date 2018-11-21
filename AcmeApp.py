@@ -1,10 +1,23 @@
 from tkinter import *
-
+import urllib.request
+import json
+import tkinter.messagebox
 
 # constructor of the class App
 class App(Tk):
     def __init__(self, *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
+        # create a dictionary of variables for all the classes to share
+        self.shared_data={
+            #  a variable that shared by functions in the StartPage and SearchPage for establishing the chosen Database
+            "dbOption":StringVar(),
+            # variables to be shared by SearchPage and InfoPage, to store the movie info data
+            "title":StringVar(),
+            "year": StringVar(),
+            "dire": StringVar(),
+            "actors": StringVar(),
+            "plot": StringVar()
+        }
         #Setup Frame
         container=Frame(self)
         container.pack(side="top", fill="both", expand=True)
@@ -26,10 +39,6 @@ class App(Tk):
         frame.tkraise()
 
 
-# creating a global variable that  can be shared by functions in the StartPage and SearchPage
-dbOption = StringVar
-
-
 # creating a class for the StartPage window
 class StartPage(Frame):
     def __init__(self, parent, controller):
@@ -38,14 +47,12 @@ class StartPage(Frame):
         # set the value of the global StringVar "dbOption" to "1" for OMDb
         def dbPickOMDb(event):
             print("dbOption = 1")
-            global dbOption
-            dbOption="1"
+            controller.shared_data["dbOption"]="1"
 
         # set the value of the global StringVar "dbOption" to "2" for IMDb
         def dbPickIMDb(event):
             print("dbOption = 2")
-            global dbOption
-            dbOption="2"
+            controller.shared_data["dbOption"]="2"
 
         # a frame that will stretch over the whole window
         frame = Frame(self, height=400, width=600, bg='black')
@@ -92,20 +99,44 @@ class SearchPage(Frame):
 
         # defining the search function behind the search button
         def searchMovie(event):
-            from selenium import webdriver
-            # import time
-            br = webdriver.Firefox(executable_path='geckodriver.exe')
-            br.implicitly_wait(15)  # wait's for the page to get done
-            # Give output to console and expect a input from user
+            moviename=searchBox.get()
+            title=moviename.replace(' ','-')
 
-            if dbOption=="1":
-                br.get('https://www.omdbapi.com/?t=' + searchBox.get() + '&apikey=244bde45')
-                print("Attempted contacting OMDb!" + searchBox.get())
-            elif dbOption=="2":
-                br.get('https://api.themoviedb.org/3/search/movie?api_key=da097a759910eefff9e3098e9e3d3870&query=' + searchBox.get())
-                print("Attempted Contacting IMDb!" + searchBox.get())
+            if controller.shared_data["dbOption"]=="1":
+                url='https://www.omdbapi.com/?t=' + title + '&apikey=244bde45'
+                print('Db: 1\t'+url)
+                # using the urllib.request library we can access urls from within our app, without the need of a browser
+                json_obj = urllib.request.urlopen(url)
+                data = json.load(json_obj)
+
+                controller.shared_data["title"] = data['Title']
+                controller.shared_data["year"] = data['Year']
+                controller.shared_data["dire"] = data['Director']
+                controller.shared_data["actors"] = data['Actors']
+                controller.shared_data["plot"] = data['Plot']
+                print("The details of the movie is stored")
+
+            elif controller.shared_data["dbOption"]=="2":
+                url='https://api.themoviedb.org/3/search/movie?api_key=da097a759910eefff9e3098e9e3d3870&query=' + title
+                print('Db: 2\t'+url)
+
+                json_obj = urllib.request.urlopen(url)
+                data = json.load(json_obj)
+
+                # because the JSON from TMDb is organized innto a list of more movie elements, the use of a for loop to go through it is necessary
+                # for the purpose of this application we will only use the first movie entry in the list (supposing it will be the most relevant
+                for element in data['results']:
+                    controller.shared_data["title"] = element['title']
+                    controller.shared_data["year"] = element['release_date']
+                    controller.shared_data["dire"] = "N/A"
+                    controller.shared_data["actors"] = "N/A"
+                    controller.shared_data["plot"] = element['overview']
+                    print("The details of the first movie are stored!")
             else:
-                print("ERROR!")
+                print("ERROR!There is no movie with such a name! Please try again!")
+
+
+            print("Reached the end of the SEARCH function!\n")
 
         # a frame to cover and host all other widgets and structuring elements in the window
         frame = Frame(self, height=400, width=600, bg='black')
@@ -126,8 +157,9 @@ class SearchPage(Frame):
         searchBox.pack(pady=5)
 
         # search button in line with the input box
-        searchBtn = Button(frame, text="Search", bg='white', fg='black', command=lambda: controller.show_frame(InfoPage),highlightcolor='orange')
+        searchBtn = Button(frame, text="Search", bg='white', fg='black',highlightcolor='orange', command=lambda: controller.show_frame(InfoPage))
         searchBtn.bind("<Button-1>", searchMovie)
+        # searchBtn.bind("<Button-1>", lambda x: controller.show_frame(InfoPage))
         searchBtn.pack(pady=10)
 
         # RANDOM button underneath input box
@@ -147,6 +179,9 @@ class SearchPage(Frame):
 class InfoPage(Frame):
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
+
+        def showMovieInfo(param):
+            tkinter.messagebox.showinfo('Movie Info', param)
 
         # 7 frames for the layout
         frame1 = Frame(self, bg='black')
@@ -181,39 +216,46 @@ class InfoPage(Frame):
         addToWishBtn.pack(side=RIGHT, pady=5, padx=5)
 
         # labels on the left
-        name_lbl = Label(frame3, text="Name", bg='black', fg='white')
+        name_lbl = Button(frame3, text="Name", bg='black', fg='white', command=lambda:showMovieInfo(controller.shared_data["title"]))
         name_lbl.pack(side=LEFT, padx=15, pady=5)
+        #name_lbl.bind("<Button-1>",showMovieInfo(controller.shared_data["title"]))
 
-        year_lbl = Label(frame4, text="Year", bg='black', fg='white')
+        year_lbl = Button(frame4, text="Year", bg='black', fg='white',command=lambda:showMovieInfo(controller.shared_data["year"]))
         year_lbl.pack(side=LEFT, padx=15, pady=5)
+        #year_lbl.bind("<Button-1>",showMovieInfo(controller.shared_data["year"]))
 
-        director_lbl = Label(frame5, text="Director", bg='black', fg='white')
+        director_lbl = Button(frame5, text="Director", bg='black', fg='white', command=lambda:showMovieInfo(controller.shared_data["dire"]))
         director_lbl.pack(side=LEFT, padx=15, pady=5)
+        #director_lbl.bind("<Button-1>",showMovieInfo(controller.shared_data["dire"]))
 
-        cast_lbl = Label(frame6, text="Cast", bg='black', fg='white')
+        cast_lbl = Button(frame6, text="Cast", bg='black', fg='white',command=lambda:showMovieInfo(controller.shared_data["actors"]))
         cast_lbl.pack(side=LEFT, padx=15, pady=5)
+        #cast_lbl.bind("<Button-1>",showMovieInfo(controller.shared_data["actors"]))
 
-        description_lbl = Label(frame7, text="Description", bg='black', fg='white')
+        description_lbl = Button(frame7, text="Description", bg='black', fg='white',command=lambda:showMovieInfo(controller.shared_data["plot"]))
         description_lbl.pack(side=LEFT, padx=15, pady=5)
+        #description_lbl.bind("<Button-1>",showMovieInfo(controller.shared_data["plot"]))
 
         # labels for info on the right
-        nameInfo_lbl = Label(frame3, text="Name_of_the_movie", bg='black', fg='white')
-        nameInfo_lbl.pack(side=LEFT, padx=15, pady=5)
+       # print("Ready to display the global vars!")
 
-        yearInfo_lbl = Label(frame4, text="Year_of_the_movie", bg='black', fg='white')
-        yearInfo_lbl.pack(side=LEFT, padx=15, pady=5)
+        #nameInfo_lbl = Label(frame3, text=controller.shared_data["title"], bg='black', fg='white')
+        #nameInfo_lbl.pack(side=LEFT, padx=15, pady=5)
 
-        directorInfo_lbl = Label(frame5, text="Director_of_the_movie", bg='black', fg='white')
-        directorInfo_lbl.pack(side=LEFT, padx=15, pady=5)
+        #yearInfo_lbl = Label(frame4, text=controller.shared_data["year"], bg='black', fg='white')
+        #yearInfo_lbl.pack(side=LEFT, padx=15, pady=5)
 
-        castInfo_lbl = Label(frame6, text="Cast_of_the_movie", bg='black', fg='white')
-        castInfo_lbl.pack(side=LEFT, padx=15, pady=5)
+        #directorInfo_lbl = Label(frame5, text=controller.shared_data["dire"], bg='black', fg='white')
+        #directorInfo_lbl.pack(side=LEFT, padx=15, pady=5)
 
-        descriptionInfo_lbl = Label(frame7, text="Descriprtion_of_the_movie", bg='black', fg='white')
-        descriptionInfo_lbl.pack(side=LEFT, padx=15, pady=5)
+        #castInfo_lbl = Label(frame6, text=controller.shared_data["actors"], bg='black', fg='white')
+        #castInfo_lbl.pack(side=LEFT, padx=15, pady=5)
 
-        lbl_footer = Label(frame7, text="customersupport@acme.com         Tel:01632 960625", relief=SUNKEN, bg='black', fg='white', bd=0)
-        lbl_footer.pack(side=BOTTOM, fill=X, anchor='center')
+        #descriptionInfo_lbl = Label(frame7, text=controller.shared_data["plot"], bg='black', fg='white')
+        #descriptionInfo_lbl.pack(side=LEFT, padx=15, pady=5)
+
+        #lbl_footer = Label(frame7, text="customersupport@acme.com         Tel:01632 960625", relief=SUNKEN, bg='black', fg='white', bd=0)
+        #lbl_footer.pack(side=BOTTOM, fill=X, anchor='center')
 
 
 class WishPage(Frame):
