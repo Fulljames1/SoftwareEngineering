@@ -132,7 +132,6 @@ class SearchPage(Frame):
                     controller.shared_data["actors"] = "N/A"
                     controller.shared_data["plot"] = element['overview']
                     print("The details of the first movie are stored!")
-                    break
             else:
                 print("ERROR!There is no movie with such a name! Please try again!")
 
