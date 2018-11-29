@@ -132,6 +132,7 @@ class SearchPage(Frame):
                     controller.shared_data["actors"] = "N/A"
                     controller.shared_data["plot"] = element['overview']
                     print("The details of the first movie are stored!")
+                    break
             else:
                 print("ERROR!There is no movie with such a name! Please try again!")
 
@@ -211,9 +212,19 @@ class InfoPage(Frame):
         lbl_logo = Label(frame1, text="ACME", font=("Arial Black", "30", "bold"), bg='black', fg='orange')
         lbl_logo.pack(pady=10, side=LEFT)
 
+
+        def saveMovie(param):
+            name = open("savedmovies.txt", "w")
+            name.write(param) #writes contents in file to usernames.txt
+            #name.close() #closes file
+            print("Saved\n")
+
         # "Add to wishlist" button on the right of the window
-        addToWishBtn = Button(frame2, text="Add to wishlist", bg='gray', fg='white', command=lambda : controller.show_frame(WishPage),highlightcolor='orange')
+        addToWishBtn = Button(frame2, text="Add to wishlist", bg='gray', fg='white', command=lambda:saveMovie(controller.shared_data["title"]))
         addToWishBtn.pack(side=RIGHT, pady=5, padx=5)
+        
+        
+        
 
         # labels on the left
         name_lbl = Button(frame3, text="Name", bg='black', fg='white', command=lambda:showMovieInfo(controller.shared_data["title"]))
@@ -265,6 +276,27 @@ class WishPage(Frame):
         l = PanedWindow(self, bg='black')
         l.pack(fill=X)
 
+
+        open1 = open("savedmovies.txt", "r")
+        lines = open1.read()
+        test = ''.join(lines)
+        open1.close()
+       # Tk.update_idletasks(self)
+
+        m1 = ["1", test, "Weekend movie", "5/5"]
+        m2 = ["2","Star Wars", "Trash", "1/5"]
+        m3 = ["3","The Imitation Game", "History movie", "5/5"]
+        m4 = ["4","The Polar Express", "Nice Christmas movie", "2/5"]
+        m5 = ["5","Star Wars", "Need to start watching this", "3/5"]
+        m6 = ["6","Interstellar", "Does this count as revision?", "5/5"]
+        m7 = ["7","The Predator", "Scary dont watch alone!", "2/5"]
+        m8 = ["8","The Lion King", "Sing along", "3/5"]
+        m9 = ["9","Mission: Impossible - Rogue Nation", "ACTION!", "1/5"]
+        m10 = ["10","Pirates of the Caribbean: The Curse of the Black Pearl", "ARRRRR!!", "5/5"]
+        
+        subMenu = [m1, m2, m3, m4, m5, m6, m7, m8, m9, m10]
+        #subMenu [0][1] = test
+
         # img=PhotoImage(file="hb.png", width=30, height=30)
         home = Button(l, text='Home', command=lambda: controller.show_frame(StartPage), font=("Arial", "8", "italic"), width=5, height=2, bg='black', fg='orange', highlightcolor='orange')
         home.pack(side=RIGHT, anchor='ne')
@@ -275,36 +307,246 @@ class WishPage(Frame):
         header = PanedWindow(self, orient=HORIZONTAL, bg='black')
         header.pack(fill=X)
 
-        name_lbl = Label(header, text='Name', bg='black', fg='white', height=10, width=25)
-        name_lbl.pack(side=LEFT)
+        #name_lbl = Label(header, text='Name', bg='black', fg='white', height=10, width=25)
+        #name_lbl.pack(side=LEFT)
 
-        com_lbl = Label(header, text='Comment', bg='black', fg='white', height=10, width=25)
-        com_lbl.pack(side=LEFT)
-
-        rate_lbl = Label(header, text='Rating', bg='black', fg='white', height=10, width=25)
-        rate_lbl.pack(side=LEFT)
+      
 
         movieList = PanedWindow(self, orient=HORIZONTAL, bg='black')
         movieList.pack(fill='both', expand=True)
+        
+        
+        movieid = Label(movieList, text="ID:       " + subMenu[0] [0], bg='black', fg='white')
+        movieid.grid(column=0, row=4, sticky=W)
+        moviename = Label(movieList, text="Movie Name:       " + subMenu[0] [1], bg='black', fg='white')
+        moviename.grid(column=1, row=4, sticky=W)
+        moviecomment = Label(movieList, text="Comment:       " + subMenu[0] [2], bg='black', fg='white')
+        moviecomment.grid(column=2, row=4, sticky=W)
+        movierate = Label(movieList, text="Raiting:   "+subMenu[0] [3], bg='black', fg='white')
+        movierate.grid(column=3, row=4, sticky=W)
+        
+        movie1id = Label(movieList, text="ID:       " + subMenu[1] [0], bg='black', fg='white')
+        movie1id.grid(column=0, row=5, sticky=W)
+        movie1name = Label(movieList, text="Movie Name:       " + subMenu[1] [1], bg='black', fg='white')
+        movie1name.grid(column=1, row=5, sticky=W)
+        movie1comment = Label(movieList, text="Comment:       " + subMenu[1] [2], bg='black', fg='white')
+        movie1comment.grid(column=2, row=5, sticky=W)
+        movie1rate = Label(movieList, text="Raiting:   "+subMenu[1] [3], bg='black', fg='white')
+        movie1rate.grid(column=3, row=5, sticky=W)
+        
+        movie2id = Label(movieList, text="ID:       " + subMenu[2] [0], bg='black', fg='white')
+        movie2id.grid(column=0, row=6, sticky=W)
+        movie2name = Label(movieList, text="Movie Name:       " + subMenu[2] [1], bg='black', fg='white')
+        movie2name.grid(column=1, row=6, sticky=W)
+        movie2comment = Label(movieList, text="Comment:       " + subMenu[2] [2], bg='black', fg='white')
+        movie2comment.grid(column=2, row=6, sticky=W)
+        movie2rate = Label(movieList, text="Raiting:   "+subMenu[2] [3], bg='black', fg='white')
+        movie2rate.grid(column=3, row=6, sticky=W)
+        
+        movie3id = Label(movieList, text="ID:       " + subMenu[3] [0], bg='black', fg='white')
+        movie3id.grid(column=0, row=7, sticky=W)
+        movie3name = Label(movieList, text="Movie Name:       " + subMenu[3] [1], bg='black', fg='white')
+        movie3name.grid(column=1, row=7, sticky=W)
+        movie3comment = Label(movieList, text="Comment:       " + subMenu[3] [2], bg='black', fg='white')
+        movie3comment.grid(column=2, row=7, sticky=W)
+        movie3rate = Label(movieList, text="Raiting:   "+subMenu[3] [3], bg='black', fg='white')
+        movie3rate.grid(column=3, row=7, sticky=W)
+        
+        movie4id = Label(movieList, text="ID:       " + subMenu[4] [0], bg='black', fg='white')
+        movie4id.grid(column=0, row=8, sticky=W)
+        movie4name = Label(movieList, text="Movie Name:       " + subMenu[4] [1], bg='black', fg='white')
+        movie4name.grid(column=1, row=8, sticky=W)
+        movie4comment = Label(movieList, text="Comment:       " + subMenu[4] [2], bg='black', fg='white')
+        movie4comment.grid(column=2, row=8, sticky=W)
+        movie4rate = Label(movieList, text="Raiting:   "+subMenu[4] [3], bg='black', fg='white')
+        movie4rate.grid(column=3, row=8, sticky=W)
+        
+        movie5id = Label(movieList, text="ID:       " + subMenu[5] [0], bg='black', fg='white')
+        movie5id.grid(column=0, row=9, sticky=W)
+        movie5name = Label(movieList, text="Movie Name:       " + subMenu[5] [1], bg='black', fg='white')
+        movie5name.grid(column=1, row=9, sticky=W)
+        movie5comment = Label(movieList, text="Comment:       " + subMenu[5] [2], bg='black', fg='white')
+        movie5comment.grid(column=2, row=9, sticky=W)
+        movie5rate = Label(movieList, text="Raiting:   "+subMenu[5] [3], bg='black', fg='white')
+        movie5rate.grid(column=3, row=9, sticky=W)
+        
+        movie6id = Label(movieList, text="ID:       " + subMenu[6] [0], bg='black', fg='white')
+        movie6id.grid(column=0, row=10, sticky=W)
+        movie6name = Label(movieList, text="Movie Name:       " + subMenu[6] [1], bg='black', fg='white')
+        movie6name.grid(column=1, row=10, sticky=W)
+        movie6comment = Label(movieList, text="Comment:       " + subMenu[6] [2], bg='black', fg='white')
+        movie6comment.grid(column=2, row=10, sticky=W)
+        movie6rate = Label(movieList, text="Raiting:   "+subMenu[6] [3], bg='black', fg='white')
+        movie6rate.grid(column=3, row=10, sticky=W)
+        
+        movie7id = Label(movieList, text="ID:       " + subMenu[7] [0], bg='black', fg='white')
+        movie7id.grid(column=0, row=11, sticky=W)
+        movie7name = Label(movieList, text="Movie Name:       " + subMenu[7] [1], bg='black', fg='white')
+        movie7name.grid(column=1, row=11, sticky=W)
+        movie7comment = Label(movieList, text="Comment:       " + subMenu[7] [2], bg='black', fg='white')
+        movie7comment.grid(column=2, row=11, sticky=W)
+        movie7rate = Label(movieList, text="Raiting:   "+subMenu[7] [3], bg='black', fg='white')
+        movie7rate.grid(column=3, row=11, sticky=W)
+        
+        movie8id = Label(movieList, text="ID:       " + subMenu[8] [0], bg='black', fg='white')
+        movie8id.grid(column=0, row=12, sticky=W)
+        movie8name = Label(movieList, text="Movie Name:       " + subMenu[8] [1], bg='black', fg='white')
+        movie8name.grid(column=1, row=12, sticky=W)
+        movie8comment = Label(movieList, text="Comment:       " + subMenu[8] [2], bg='black', fg='white')
+        movie8comment.grid(column=2, row=12, sticky=W)
+        movie8rate = Label(movieList, text="Raiting:   "+subMenu[8] [3], bg='black', fg='white')
+        movie8rate.grid(column=3, row=12, sticky=W)
+        
+        movie9id = Label(movieList, text="ID:       " + subMenu[9] [0], bg='black', fg='white')
+        movie9id.grid(column=0, row=13, sticky=W)
+        movie9name = Label(movieList, text="Movie Name:       " + subMenu[9] [1], bg='black', fg='white')
+        movie9name.grid(column=1, row=13, sticky=W)
+        movie9comment = Label(movieList, text="Comment:       " + subMenu[9] [2], bg='black', fg='white')
+        movie9comment.grid(column=2, row=13, sticky=W)
+        movie9rate = Label(movieList, text="Raiting:   "+subMenu[9] [3], bg='black', fg='white')
+        movie9rate.grid(column=3, row=13, sticky=W)
+        
+        #nameInfo = Text(movieList, bg='black', fg='white', height=25, width=25)
+        #nameInfo.insert(INSERT, 'Movie name example')
+        #nameInfo.pack(side=LEFT)
+        txtid = Entry(movieList,width=10)
+        txtid.grid(column=1, row=0)
+        
+        
+        
+        def idload():
+            name = int(txtid.get())
+        
+            if name == 1:
+                txt = Entry(movieList,width=10)
+                txt.grid(column=1, row=2)
+            
+                def clicked():
+                    res =  "Comment:       " + txt.get()
+                    moviecomment.configure(text= res)
+        
+                btn = Button(movieList, text="Add comment", command=clicked)
+                btn.grid(column=2, row=2)
+                movieList.mainloop()
+                
+            elif name ==2:
+                txt = Entry(movieList,width=10)
+                txt.grid(column=1, row=2)
+            
+                def clicked():
+                    res =  "Comment:       " + txt.get()
+                    movie1comment.configure(text= res)
+        
+                btn = Button(movieList, text="Add comment", command=clicked)
+                btn.grid(column=2, row=2)
+                movieList.mainloop()
+                
+            elif name ==3:
+                txt = Entry(movieList,width=10)
+                txt.grid(column=1, row=2)
+            
+                def clicked():
+                    res =  "Comment:       " + txt.get()
+                    movie2comment.configure(text= res)
+        
+                btn = Button(movieList, text="Add comment", command=clicked)
+                btn.grid(column=2, row=2)
+                movieList.mainloop()
+                
+            elif name ==4:
+                txt = Entry(movieList,width=10)
+                txt.grid(column=1, row=2)
+            
+                def clicked():
+                    res =  "Comment:       " + txt.get()
+                    movie3comment.configure(text= res)
+        
+                btn = Button(movieList, text="Add comment", command=clicked)
+                btn.grid(column=2, row=2)
+                movieList.mainloop()
+                
+            elif name ==5:
+                txt = Entry(movieList,width=10)
+                txt.grid(column=1, row=2)
+            
+                def clicked():
+                    res =  "Comment:       " + txt.get()
+                    movie4comment.configure(text= res)
+        
+                btn = Button(movieList, text="Add comment", command=clicked)
+                btn.grid(column=2, row=2)
+                movieList.mainloop()
+                
+            elif name ==6:
+                txt = Entry(movieList,width=10)
+                txt.grid(column=1, row=2)
+            
+                def clicked():
+                    res =  "Comment:       " + txt.get()
+                    movie5comment.configure(text= res)
+        
+                btn = Button(movieList, text="Add comment", command=clicked)
+                btn.grid(column=2, row=2)
+                movieList.mainloop()
+                
+            elif name ==7:
+                txt = Entry(movieList,width=10)
+                txt.grid(column=1, row=2)
+            
+                def clicked():
+                    res =  "Comment:       " + txt.get()
+                    movie6comment.configure(text= res)
+        
+                btn = Button(movieList, text="Add comment", command=clicked)
+                btn.grid(column=2, row=2)
+                movieList.mainloop()
+                
+            elif name ==8:
+                txt = Entry(movieList,width=10)
+                txt.grid(column=1, row=2)
+            
+                def clicked():
+                    res =  "Comment:       " + txt.get()
+                    movie7comment.configure(text= res)
+        
+                btn = Button(movieList, text="Add comment", command=clicked)
+                btn.grid(column=2, row=2)
+                movieList.mainloop()
+                
+            elif name ==9:
+                txt = Entry(movieList,width=10)
+                txt.grid(column=1, row=2)
+            
+                def clicked():
+                    res =  "Comment:       " + txt.get()
+                    movie8comment.configure(text= res)
+        
+                btn = Button(movieList, text="Add comment", command=clicked)
+                btn.grid(column=2, row=2)
+                movieList.mainloop()
+                
+            elif name ==10:
+                txt = Entry(movieList,width=10)
+                txt.grid(column=1, row=2)
+            
+                def clicked():
+                    res =  "Comment:       " + txt.get()
+                    movie9comment.configure(text= res)
+        
+                btn = Button(movieList, text="Add comment", command=clicked)
+                btn.grid(column=2, row=2)
+                movieList.mainloop()
+                
+            else: 
+                print("Please enter a movie ID between 1-10")
+                
+        btnid = Button(movieList, text="Movie ID", command=idload)
+        btnid.grid(column=2, row=0)  
 
-        nameInfo = Text(movieList, bg='black', fg='white', height=25, width=25)
-        nameInfo.insert(INSERT, 'Movie name example')
-        nameInfo.pack(side=LEFT)
-
-        comInfo = Text(movieList, bg='black', fg='white', height=25, width=25)
-        comInfo.insert(INSERT, 'Comment example. It should be very very very very very very very very very very very very very very very very loooooooooooooooooong. Cause that\'s how comments usually are. ')
-        comInfo.pack(side=LEFT)
-
-        rating = Text(movieList, bg='black', fg='white', height=25, width=25)
-        rating.insert(INSERT, 'This section will have the n/5 ')
-        rating.pack(side=LEFT)
-
-        scroll = Scrollbar(movieList)
-        scroll.pack(side=RIGHT, fill=Y)
 
         lbl_footer = Label(self, text="customersupport@acme.com         Tel:01632 960625", relief=SUNKEN, anchor='s',bg='black', fg='white', bd=0)
         lbl_footer.pack(side=BOTTOM, fill=X)
-
-
+        
+        
 app = App()
 app.mainloop()
