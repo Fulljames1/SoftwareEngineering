@@ -306,7 +306,6 @@ class WishPage(Frame):
         header.pack(fill=X)
 
         def updateWishy():
-            print("111111111")
             moviename.configure(text= "1) Title:     " + movies[0])
             moviecomment.configure(text= "Comment:    " + comments[0])
             movierate.configure(text= "Star Rating:     " + ratings[0])
@@ -337,7 +336,6 @@ class WishPage(Frame):
             movie9name.configure(text= "10) Title:     " + movies[9])
             movie9comment.configure(text= "Comment:    " + comments[9])
             movie9rate.configure(text= "Star Rating:     " + ratings[9])
-            print("DOPE")
             movieList.mainloop()
             
         refresh=Button(header,text="Refresh Page", bg='black', fg='orange', command= updateWishy)
@@ -472,7 +470,42 @@ class WishPage(Frame):
         txtid = Entry(movieList,width=10)
         txtid.grid(column=1, row=0)
         
+        def delete():
+            name = int(txtid.get())
+            line_to_replace = (name -1)
+            comment_file = 'savedComment.txt'
+            rating_file = 'savedratings.txt'
+            movie_file = 'savedmovies.txt'
+            
+            #Movie Delete
+            with open(movie_file, 'r') as file:
+                lines = file.readlines()
+                
+            if len(lines) > int(line_to_replace):
+                lines[line_to_replace] = ""
+                with open(movie_file, 'w') as file:                            
+                        file.writelines( lines )
+            movies[line_to_replace] = ""
+            
+            #Rating Delete
+            with open(rating_file, 'r') as file:
+                lines = file.readlines()
+                
+            if len(lines) > int(line_to_replace):
+                lines[line_to_replace] = "N/A \n"
+                with open(rating_file, 'w') as file:                            
+                        file.writelines( lines )
+            ratings[line_to_replace] = "N/A \n"
 
+            #Comment Delete
+            with open(comment_file, 'r') as file:
+                lines = file.readlines()
+                
+            if len(lines) > int(line_to_replace):
+                lines[line_to_replace] = "N/A \n"
+                with open(comment_file, 'w') as file:                            
+                        file.writelines( lines )
+            comments[line_to_replace] = "N/A \n"
 
         def idload():
             name = int(txtid.get())
@@ -995,7 +1028,9 @@ class WishPage(Frame):
                 
         btnid = Button(movieList, text="Movie ID", command=idload)
         btnid.grid(column=2, row=0)  
-
+        
+        btndel = Button(movieList, text="Delete Entry", command=delete)
+        btndel.grid(column=3, row=0)  
 
         lbl_footer = Label(self, text="customersupport@acme.com         Tel:01632 960625", relief=SUNKEN, anchor='s',bg='black', fg='white', bd=0)
         lbl_footer.pack(side=BOTTOM, fill=X)
