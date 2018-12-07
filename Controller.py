@@ -77,17 +77,19 @@ class StartPage(Frame):
         def upWishList(self): # this function reads the text in the savedmovie.txt and saves it in the global variable test
             txt = open("savedmovies.txt", "r")
             lines = txt.readlines() # this creates a list containing every line in the text file
-
+            movies.clear()
             for l in lines: # looping through the movie names list
                 movies.append(l) # and appending them to the global list "movies"
-
+            movies.append(' ')
             txt.close()
             comTxt = open("savedComment.txt", "r")
             ratTxt = open("savedratings.txt", "r")
             comLines = comTxt.readlines() # this creates a list containing every line in the text file
             ratLines = ratTxt.readlines() # this creates a list containing every line in the text file
+            comments.clear()
             for c in comLines: # looping through the movie names list
                 comments.append(c) # and appending them to the global list "movies"
+            ratings.clear()
             for r in ratLines: # looping through the movie names list
                 ratings.append(r) # and appending them to the global list "movies"
             comTxt.close()
@@ -131,17 +133,19 @@ class SearchPage(Frame):
         def upWishList(self): # this function reads the text in the savedmovie.txt and saves it in the global variable test
                 txt = open("savedmovies.txt", "r")
                 lines = txt.readlines() # this creates a list containing every line in the text file
-        
+                movies.clear()
                 for l in lines: # looping through the movie names list
                     movies.append(l) # and appending them to the global list "movies"
-        
+                movies.append(' ')
                 txt.close()
                 comTxt = open("savedComment.txt", "r")
                 ratTxt = open("savedratings.txt", "r")
                 comLines = comTxt.readlines() # this creates a list containing every line in the text file
                 ratLines = ratTxt.readlines() # this creates a list containing every line in the text file
+                comments.clear()
                 for c in comLines: # looping through the movie names list
                     comments.append(c) # and appending them to the global list "movies"
+                ratings.clear()
                 for r in ratLines: # looping through the movie names list
                     ratings.append(r) # and appending them to the global list "movies"
                 comTxt.close()
@@ -224,17 +228,19 @@ class InfoPage(Frame):
         def upWishList(self): # this function reads the text in the savedmovie.txt and saves it in the global variable test
             txt = open("savedmovies.txt", "r")
             lines = txt.readlines() # this creates a list containing every line in the text file
-
+            movies.clear()
             for l in lines: # looping through the movie names list
                 movies.append(l) # and appending them to the global list "movies"
-
+            movies.append(' ')
             txt.close()
             comTxt = open("savedComment.txt", "r")
             ratTxt = open("savedratings.txt", "r")
             comLines = comTxt.readlines() # this creates a list containing every line in the text file
             ratLines = ratTxt.readlines() # this creates a list containing every line in the text file
+            comments.clear()
             for c in comLines: # looping through the movie names list
                 comments.append(c) # and appending them to the global list "movies"
+            ratings.clear()
             for r in ratLines: # looping through the movie names list
                 ratings.append(r) # and appending them to the global list "movies"
             comTxt.close()
