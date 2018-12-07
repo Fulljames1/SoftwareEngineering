@@ -305,10 +305,8 @@ class WishPage(Frame):
         header = PanedWindow(self, orient=HORIZONTAL, bg='black')
         header.pack(fill=X)
 
-        #def upcommrate(self): # this function reads the text in the savedmovie.txt and saves it in the global variable test
-            
-
         def updateWishy():
+            print("111111111")
             moviename.configure(text= "1) Title:     " + movies[0])
             moviecomment.configure(text= "Comment:    " + comments[0])
             movierate.configure(text= "Star Rating:     " + ratings[0])
@@ -317,7 +315,7 @@ class WishPage(Frame):
             movie1rate.configure(text= "Star Rating:     " + ratings[1])
             movie2name.configure(text= "3) Title:     " + movies[2])
             movie2comment.configure(text= "Comment:    " + comments[2])
-            movie2rate.configure(text= "Star Rating:     " + ratings[2] + "")
+            movie2rate.configure(text= "Star Rating:     " + ratings[2])
             movie3name.configure(text= "4) Title:     " + movies[3])
             movie3comment.configure(text= "Comment:    " + comments[3])
             movie3rate.configure(text= "Star Rating:     " + ratings[3])
@@ -339,7 +337,9 @@ class WishPage(Frame):
             movie9name.configure(text= "10) Title:     " + movies[9])
             movie9comment.configure(text= "Comment:    " + comments[9])
             movie9rate.configure(text= "Star Rating:     " + ratings[9])
-
+            print("DOPE")
+            movieList.mainloop()
+            
         refresh=Button(header,text="Refresh Page", bg='black', fg='orange', command= updateWishy)
         refresh.pack(side=RIGHT)
         
@@ -376,103 +376,102 @@ class WishPage(Frame):
         Commentline9 = linecache.getline("savedComment.txt", 9)
         Commentline10 = linecache.getline("savedComment.txt", 10)
         
-
         movieList = PanedWindow(self, orient=HORIZONTAL, bg='black')
         movieList.pack(fill='both', expand=True)
         
         #movieid = Label(movieList, text="ID:       " + subMenu[0] [0], bg='black', fg='white')
        # movieid.grid(column=0, row=5, sticky=W)
-        moviename = Label(movieList, text="Movie Name:       " + Titleline1, bg='black', fg='white')
+        moviename = Label(movieList, text="1) Title:     " + Titleline1, bg='black', fg='white')
         moviename.grid(column=1, row=5, sticky=W)
-        moviecomment = Label(movieList, text="Comment:       " + Commentline1, bg='black', fg='white')
+        moviecomment = Label(movieList, text="Comment:    " + Commentline1, bg='black', fg='white')
         moviecomment.grid(column=2, row=5, sticky=W)
-        movierate = Label(movieList, text="Raiting:   "+ Rateline1 + "/5", bg='black', fg='white')
+        movierate = Label(movieList, text="Star Rating:     "+ Rateline1, bg='black', fg='white')
         movierate.grid(column=3, row=5, sticky=W)
         
         #movie1id = Label(movieList, text="ID:       " + subMenu[1] [0], bg='black', fg='white')
         #movie1id.grid(column=0, row=6, sticky=W)
-        movie1name = Label(movieList, text="Movie Name:       " + Titleline2, bg='black', fg='white')
+        movie1name = Label(movieList, text="2) Title:     " + Titleline2, bg='black', fg='white')
         movie1name.grid(column=1, row=6, sticky=W)
-        movie1comment = Label(movieList, text="Comment:       " + Commentline2, bg='black', fg='white')
+        movie1comment = Label(movieList, text="Comment:    " + Commentline2, bg='black', fg='white')
         movie1comment.grid(column=2, row=6, sticky=W)
-        movie1rate = Label(movieList, text="Raiting:   "+ Rateline2 + "/5", bg='black', fg='white')
+        movie1rate = Label(movieList, text="Star Rating:     "+ Rateline2, bg='black', fg='white')
         movie1rate.grid(column=3, row=6, sticky=W)
         
        # movie2id = Label(movieList, text="ID:       " + subMenu[2] [0], bg='black', fg='white')
        # movie2id.grid(column=0, row=7, sticky=W)
-        movie2name = Label(movieList, text="Movie Name:       " + Titleline3, bg='black', fg='white')
+        movie2name = Label(movieList, text="3) Title:     " + Titleline3, bg='black', fg='white')
         movie2name.grid(column=1, row=7, sticky=W)
-        movie2comment = Label(movieList, text="Comment:       " + Commentline3, bg='black', fg='white')
+        movie2comment = Label(movieList, text="Comment:    " + Commentline3, bg='black', fg='white')
         movie2comment.grid(column=2, row=7, sticky=W)
-        movie2rate = Label(movieList, text="Raiting:   "+ Rateline3  + "/5", bg='black', fg='white')
+        movie2rate = Label(movieList, text="Star Rating:     "+ Rateline3, bg='black', fg='white')
         movie2rate.grid(column=3, row=7, sticky=W)
         
        # movie3id = Label(movieList, text="ID:       " + subMenu[3] [0], bg='black', fg='white')
        # movie3id.grid(column=0, row=8, sticky=W)
-        movie3name = Label(movieList, text="Movie Name:       " + Titleline4, bg='black', fg='white')
+        movie3name = Label(movieList, text="4) Title:     " + Titleline4, bg='black', fg='white')
         movie3name.grid(column=1, row=8, sticky=W)
-        movie3comment = Label(movieList, text="Comment:       " + Commentline4, bg='black', fg='white')
+        movie3comment = Label(movieList, text="Comment:    " + Commentline4, bg='black', fg='white')
         movie3comment.grid(column=2, row=8, sticky=W)
-        movie3rate = Label(movieList, text="Raiting:   "+ Rateline4 + "/5", bg='black', fg='white')
+        movie3rate = Label(movieList, text="Star Rating:     "+ Rateline4, bg='black', fg='white')
         movie3rate.grid(column=3, row=8, sticky=W)
         
         #movie4id = Label(movieList, text="ID:       " + subMenu[4] [0], bg='black', fg='white')
         #movie4id.grid(column=0, row=9, sticky=W)
-        movie4name = Label(movieList, text="Movie Name:       " + Titleline5, bg='black', fg='white')
+        movie4name = Label(movieList, text="5) Title:     " + Titleline5, bg='black', fg='white')
         movie4name.grid(column=1, row=9, sticky=W)
-        movie4comment = Label(movieList, text="Comment:       " + Commentline5, bg='black', fg='white')
+        movie4comment = Label(movieList, text="Comment:    " + Commentline5, bg='black', fg='white')
         movie4comment.grid(column=2, row=9, sticky=W)
-        movie4rate = Label(movieList, text="Raiting:   "+ Rateline5 + "/5", bg='black', fg='white')
+        movie4rate = Label(movieList, text="Star Rating:     "+ Rateline5, bg='black', fg='white')
         movie4rate.grid(column=3, row=9, sticky=W)
         
        # movie5id = Label(movieList, text="ID:       " + subMenu[5] [0], bg='black', fg='white')
       #  movie5id.grid(column=0, row=10, sticky=W)
-        movie5name = Label(movieList, text="Movie Name:       " + Titleline6, bg='black', fg='white')
+        movie5name = Label(movieList, text="6) Title:     " + Titleline6, bg='black', fg='white')
         movie5name.grid(column=1, row=10, sticky=W)
-        movie5comment = Label(movieList, text="Comment:       " + Commentline6, bg='black', fg='white')
+        movie5comment = Label(movieList, text="Comment:    " + Commentline6, bg='black', fg='white')
         movie5comment.grid(column=2, row=10, sticky=W)
-        movie5rate = Label(movieList, text="Raiting:   "+ Rateline6 + "/5", bg='black', fg='white')
+        movie5rate = Label(movieList, text="Star Rating:     "+ Rateline6, bg='black', fg='white')
         movie5rate.grid(column=3, row=10, sticky=W)
         
        # movie6id = Label(movieList, text="ID:       " + subMenu[6] [0], bg='black', fg='white')
       #  movie6id.grid(column=0, row=11, sticky=W)
-        movie6name = Label(movieList, text="Movie Name:       " + Titleline7, bg='black', fg='white')
+        movie6name = Label(movieList, text="7) Title:     " + Titleline7, bg='black', fg='white')
         movie6name.grid(column=1, row=11, sticky=W)
-        movie6comment = Label(movieList, text="Comment:       " + Commentline7, bg='black', fg='white')
+        movie6comment = Label(movieList, text="Comment:    " + Commentline7, bg='black', fg='white')
         movie6comment.grid(column=2, row=11, sticky=W)
-        movie6rate = Label(movieList, text="Raiting:   "+ Rateline7 + "/5", bg='black', fg='white')
+        movie6rate = Label(movieList, text="Star Rating:     "+ Rateline7, bg='black', fg='white')
         movie6rate.grid(column=3, row=11, sticky=W)
         
       #  movie7id = Label(movieList, text="ID:       " + subMenu[7] [0], bg='black', fg='white')
        # movie7id.grid(column=0, row=12, sticky=W)
-        movie7name = Label(movieList, text="Movie Name:       " + Titleline8, bg='black', fg='white')
+        movie7name = Label(movieList, text="8) Title:     " + Titleline8, bg='black', fg='white')
         movie7name.grid(column=1, row=12, sticky=W)
-        movie7comment = Label(movieList, text="Comment:       " + Commentline8, bg='black', fg='white')
+        movie7comment = Label(movieList, text="Comment:    " + Commentline8, bg='black', fg='white')
         movie7comment.grid(column=2, row=12, sticky=W)
-        movie7rate = Label(movieList, text="Raiting:   "+ Rateline8 + "/5", bg='black', fg='white')
+        movie7rate = Label(movieList, text="Star Rating:     "+ Rateline8, bg='black', fg='white')
         movie7rate.grid(column=3, row=12, sticky=W)
         
        # movie8id = Label(movieList, text="ID:       " + subMenu[8] [0], bg='black', fg='white')
       #  movie8id.grid(column=0, row=13, sticky=W)
-        movie8name = Label(movieList, text="Movie Name:       " + Titleline9, bg='black', fg='white')
+        movie8name = Label(movieList, text="9) Title:     " + Titleline9, bg='black', fg='white')
         movie8name.grid(column=1, row=13, sticky=W)
-        movie8comment = Label(movieList, text="Comment:       " + Commentline9, bg='black', fg='white')
+        movie8comment = Label(movieList, text="Comment:    " + Commentline9, bg='black', fg='white')
         movie8comment.grid(column=2, row=13, sticky=W)
-        movie8rate = Label(movieList, text="Raiting:   "+ Rateline9 + "/5", bg='black', fg='white')
+        movie8rate = Label(movieList, text="Star Rating:     "+ Rateline9, bg='black', fg='white')
         movie8rate.grid(column=3, row=13, sticky=W)
         
       #  movie9id = Label(movieList, text="ID:       " + subMenu[9] [0], bg='black', fg='white')
       #  movie9id.grid(column=0, row=14, sticky=W)
-        movie9name = Label(movieList, text="Movie Name:       " + Titleline10, bg='black', fg='white')
+        movie9name = Label(movieList, text="10) Title:     " + Titleline10, bg='black', fg='white')
         movie9name.grid(column=1, row=14, sticky=W)
-        movie9comment = Label(movieList, text="Comment:       " + Commentline10, bg='black', fg='white')
+        movie9comment = Label(movieList, text="Comment:    " + Commentline10, bg='black', fg='white')
         movie9comment.grid(column=2, row=14, sticky=W)
-        movie9rate = Label(movieList, text="Raiting:   "+ Rateline10 + "/5", bg='black', fg='white')
+        movie9rate = Label(movieList, text="Star Rating:     "+ Rateline10, bg='black', fg='white')
         movie9rate.grid(column=3, row=14, sticky=W)
 
         txtid = Entry(movieList,width=10)
         txtid.grid(column=1, row=0)
-
+        
 
 
         def idload():
@@ -488,28 +487,24 @@ class WishPage(Frame):
                 
                 instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
                 instructionrate.grid(column=1, row=3, sticky=W)
-                
-                
+                                
                 txt1 = Entry(movieList,width=10)
                 txt1.grid(column=1, row=4)
                 
             
-                def clicked():
+                def clickedComment():
                     line_to_replace = 0 
                     my_file = 'savedComment.txt'
 
                     with open(my_file, 'r') as file:
                         lines = file.readlines()
                         
-
                     if len(lines) > int(line_to_replace):
                         lines[line_to_replace] = txt.get()+"\n"
-                        
-                        
-
-                    with open(my_file, 'w') as file:                            
-                            file.writelines( lines )
-                       
+                        with open(my_file, 'w') as file:                            
+                                file.writelines( lines )
+                    comments[line_to_replace] = txt.get()+"\n"
+                                                      
                 def clickedRate():
                     line_to_replace = 0 
                     my_file = 'savedratings.txt'
@@ -517,23 +512,16 @@ class WishPage(Frame):
                     with open(my_file, 'r') as file:
                         lines = file.readlines()
                         
-
                     if len(lines) > int(line_to_replace):
                         lines[line_to_replace] = txt1.get()+"\n"
                     if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
                         with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                            
+                            file.writelines( lines )  
                     else:
                         messagebox.showwarning("Warning","Pick a number from 1 to 5")
-                        
-
-                        
-                    
-                
-                    
+                    ratings[line_to_replace] = txt1.get()+"\n"
         
-                btn = Button(movieList, text="Add comment", command=clicked)
+                btn = Button(movieList, text="Add comment", command=clickedComment)
                 btn.grid(column=2, row=2)
                 btn = Button(movieList, text= "Add raiting",command=clickedRate)
                 btn.grid(column=2, row=4)
@@ -553,20 +541,20 @@ class WishPage(Frame):
                 txt1 = Entry(movieList,width=10)
                 txt1.grid(column=1, row=4)
             
-                def clicked():
+                def clickedComment():
                     line_to_replace = 1 
                     my_file = 'savedComment.txt'
 
                     with open(my_file, 'r') as file:
                         lines = file.readlines()
-                        
 
                     if len(lines) > int(line_to_replace):
                         lines[line_to_replace] = txt.get()+"\n"
-
-                    with open(my_file, 'w') as file:
-                        file.writelines( lines )
+                        with open(my_file, 'w') as file:
+                            file.writelines( lines )    
                     
+                    comments[line_to_replace] = txt.get()+"\n"
+            
                 def clickedRate():
                  
                     line_to_replace = 1 
@@ -574,7 +562,6 @@ class WishPage(Frame):
 
                     with open(my_file, 'r') as file:
                         lines = file.readlines()
-                    
 
                     if len(lines) > int(line_to_replace):
                         lines[line_to_replace] = txt1.get()+"\n"
@@ -584,8 +571,9 @@ class WishPage(Frame):
                             
                     else:
                         messagebox.showwarning("Warning","Pick a number from 1 to 5")
-        
-                btn = Button(movieList, text="Add comment", command=clicked)
+                    ratings[line_to_replace] = txt1.get()+"\n"
+                    
+                btn = Button(movieList, text="Add comment", command=clickedComment)
                 btn.grid(column=2, row=2)
                 btn = Button(movieList, text= "Add raiting",command=clickedRate)
                 btn.grid(column=2, row=4)
@@ -606,19 +594,18 @@ class WishPage(Frame):
                 txt1 = Entry(movieList,width=10)
                 txt1.grid(column=1, row=4)
             
-                def clicked():
+                def clickedComment():
                     line_to_replace = 2 
                     my_file = 'savedComment.txt'
 
                     with open(my_file, 'r') as file:
                         lines = file.readlines()
                         
-
                     if len(lines) > int(line_to_replace):
                         lines[line_to_replace] = txt.get()+"\n"
-
-                    with open(my_file, 'w') as file:
-                        file.writelines( lines )
+                        with open(my_file, 'w') as file:
+                            file.writelines( lines )
+                    comments[line_to_replace] = txt.get()+"\n"
                     
                     
                 def clickedRate():
@@ -635,13 +622,12 @@ class WishPage(Frame):
                     if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
                         with open(my_file, 'w') as file:
                             file.writelines( lines )
-                            
                     else:
                         messagebox.showwarning("Warning","Pick a number from 1 to 5")
+                    ratings[line_to_replace] = txt1.get()+"\n"
                     
                     
-                    
-                btn = Button(movieList, text="Add comment", command=clicked)
+                btn = Button(movieList, text="Add comment", command=clickedComment)
                 btn.grid(column=2, row=2)
                 btn = Button(movieList, text= "Add raiting",command=clickedRate)
                 btn.grid(column=2, row=4)
@@ -662,7 +648,7 @@ class WishPage(Frame):
                 txt1 = Entry(movieList,width=10)
                 txt1.grid(column=1, row=4)
             
-                def clicked():
+                def clickedComment():
                     line_to_replace = 3 
                     my_file = 'savedComment.txt'
 
@@ -672,10 +658,9 @@ class WishPage(Frame):
 
                     if len(lines) > int(line_to_replace):
                         lines[line_to_replace] = txt.get()+"\n"
-
-                    with open(my_file, 'w') as file:
-                        file.writelines( lines )
-                    
+                        with open(my_file, 'w') as file:
+                            file.writelines( lines )
+                    comments[line_to_replace] = txt.get()+"\n"
                 
                 def clickedRate():
 
@@ -690,12 +675,12 @@ class WishPage(Frame):
                         lines[line_to_replace] = txt1.get()+"\n"
                     if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
                         with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                            
+                            file.writelines( lines )  
                     else:
                         messagebox.showwarning("Warning","Pick a number from 1 to 5")
-        
-                btn = Button(movieList, text="Add comment", command=clicked)
+                    ratings[line_to_replace] = txt1.get()+"\n"
+                    
+                btn = Button(movieList, text="Add comment", command=clickedComment)
                 btn.grid(column=2, row=2)
                 btn = Button(movieList, text= "Add raiting",command=clickedRate)
                 btn.grid(column=2, row=4)
@@ -716,7 +701,7 @@ class WishPage(Frame):
                 txt1 = Entry(movieList,width=10)
                 txt1.grid(column=1, row=4)
             
-                def clicked():
+                def clickedComment():
                     line_to_replace = 4
                     my_file = 'savedComment.txt'
 
@@ -726,10 +711,9 @@ class WishPage(Frame):
 
                     if len(lines) > int(line_to_replace):
                         lines[line_to_replace] = txt.get()+"\n"
-
-                    with open(my_file, 'w') as file:
-                        file.writelines( lines )
-                    
+                        with open(my_file, 'w') as file:
+                            file.writelines( lines )
+                    comments[line_to_replace] = txt.get()+"\n"
                 
                 def clickedRate():
                     line_to_replace = 4 
@@ -744,15 +728,14 @@ class WishPage(Frame):
                     if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
                         with open(my_file, 'w') as file:
                             file.writelines( lines )
-                            
                     else:
                         messagebox.showwarning("Warning","Pick a number from 1 to 5")
+                    ratings[line_to_replace] = txt1.get()+"\n"
                     
-                    
-                btn = Button(movieList, text="Add comment", command=clicked)
-                btn.grid(column=2, row=2)
-                btn = Button(movieList, text= "Add raiting",command=clickedRate)
-                btn.grid(column=2, row=4)
+                btnc = Button(movieList, text="Add comment", command=clickedComment)
+                btnc.grid(column=2, row=2)
+                btnr = Button(movieList, text= "Add raiting",command=clickedRate)
+                btnr.grid(column=2, row=4)
                 movieList.mainloop()
                 
             elif name ==6:
@@ -769,20 +752,17 @@ class WishPage(Frame):
                 txt1 = Entry(movieList,width=10)
                 txt1.grid(column=1, row=4)
             
-                def clicked():
+                def clickedComment():
                     line_to_replace = 5
                     my_file = 'savedComment.txt'
 
                     with open(my_file, 'r') as file:
                         lines = file.readlines()
-                        
-
                     if len(lines) > int(line_to_replace):
                         lines[line_to_replace] = txt.get()+"\n"
-
-                    with open(my_file, 'w') as file:
-                        file.writelines( lines )
-                    
+                        with open(my_file, 'w') as file:
+                            file.writelines( lines )
+                    comments[line_to_replace] = txt.get()+"\n"
                     
                 def clickedRate():
 
@@ -797,13 +777,12 @@ class WishPage(Frame):
                         lines[line_to_replace] = txt1.get()+"\n"
                     if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
                         with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                            
+                            file.writelines( lines )    
                     else:
                         messagebox.showwarning("Warning","Pick a number from 1 to 5")
+                    ratings[line_to_replace] = txt1.get()+"\n"
                     
-                    
-                btn = Button(movieList, text="Add comment", command=clicked)
+                btn = Button(movieList, text="Add comment", command=clickedComment)
                 btn.grid(column=2, row=2)
                 btn = Button(movieList, text= "Add raiting",command=clickedRate)
                 btn.grid(column=2, row=4)
@@ -823,20 +802,17 @@ class WishPage(Frame):
                 txt1 = Entry(movieList,width=10)
                 txt1.grid(column=1, row=4)
             
-                def clicked():
+                def clickedComment():
                     line_to_replace = 6 
                     my_file = 'savedComment.txt'
 
                     with open(my_file, 'r') as file:
                         lines = file.readlines()
-                        
-
                     if len(lines) > int(line_to_replace):
                         lines[line_to_replace] = txt.get()+"\n"
-
-                    with open(my_file, 'w') as file:
-                        file.writelines( lines )
-                    
+                        with open(my_file, 'w') as file:
+                            file.writelines( lines )
+                    comments[line_to_replace] = txt.get()+"\n"
                     
                 def clickedRate():
 
@@ -855,8 +831,9 @@ class WishPage(Frame):
                             
                     else:
                         messagebox.showwarning("Warning","Pick a number from 1 to 5")
+                    ratings[line_to_replace] = txt1.get()+"\n"
                     
-                btn = Button(movieList, text="Add comment", command=clicked)
+                btn = Button(movieList, text="Add comment", command=clickedComment)
                 btn.grid(column=2, row=2)
                 btn = Button(movieList, text= "Add raiting",command=clickedRate)
                 btn.grid(column=2, row=4)
@@ -876,20 +853,17 @@ class WishPage(Frame):
                 txt1 = Entry(movieList,width=10)
                 txt1.grid(column=1, row=4)
             
-                def clicked():
+                def clickedComment():
                     line_to_replace = 7 
                     my_file = 'savedComment.txt'
 
                     with open(my_file, 'r') as file:
                         lines = file.readlines()
-                        
-
                     if len(lines) > int(line_to_replace):
                         lines[line_to_replace] = txt.get()+"\n"
-
-                    with open(my_file, 'w') as file:
-                        file.writelines( lines )
-                    
+                        with open(my_file, 'w') as file:
+                            file.writelines( lines )
+                    comments[line_to_replace] = txt.get()+"\n"
                     
                 def clickedRate():                    
                     line_to_replace = 7 
@@ -907,8 +881,9 @@ class WishPage(Frame):
                             
                     else:
                         messagebox.showwarning("Warning","Pick a number from 1 to 5")
-        
-                btn = Button(movieList, text="Add comment", command=clicked)
+                    ratings[line_to_replace] = txt1.get()+"\n"
+                    
+                btn = Button(movieList, text="Add comment", command=clickedComment)
                 btn.grid(column=2, row=2)
                 btn = Button(movieList, text= "Add raiting",command=clickedRate)
                 btn.grid(column=2, row=4)
@@ -928,24 +903,19 @@ class WishPage(Frame):
                 txt1 = Entry(movieList,width=10)
                 txt1.grid(column=1, row=4)
             
-                def clicked():
+                def clickedComment():
                     line_to_replace = 8 
                     my_file = 'savedComment.txt'
 
                     with open(my_file, 'r') as file:
                         lines = file.readlines()
-                        
-
                     if len(lines) > int(line_to_replace):
                         lines[line_to_replace] = txt.get()+"\n"
-
-                    with open(my_file, 'w') as file:
-                        file.writelines( lines )
-                    
+                        with open(my_file, 'w') as file:
+                            file.writelines( lines )
+                    comments[line_to_replace] = txt.get()+"\n"
                     
                 def clickedRate():
-
-                    
                     line_to_replace = 8 
                     my_file = 'savedratings.txt'
 
@@ -961,8 +931,9 @@ class WishPage(Frame):
                             
                     else:
                         messagebox.showwarning("Warning","Pick a number from 1 to 5")
-        
-                btn = Button(movieList, text="Add comment", command=clicked)
+                    ratings[line_to_replace] = txt1.get()+"\n"
+                    
+                btn = Button(movieList, text="Add comment", command=clickedComment)
                 btn.grid(column=2, row=2)
                 btn = Button(movieList, text= "Add raiting",command=clickedRate)
                 btn.grid(column=2, row=4)
@@ -982,19 +953,17 @@ class WishPage(Frame):
                 txt1 = Entry(movieList,width=10)
                 txt1.grid(column=1, row=4)
             
-                def clicked():
+                def clickedComment():
                     line_to_replace = 9 
                     my_file = 'savedComment.txt'
 
                     with open(my_file, 'r') as file:
                         lines = file.readlines()
-                        
-
                     if len(lines) > int(line_to_replace):
                         lines[line_to_replace] = txt.get()+"\n"
-
-                    with open(my_file, 'w') as file:
-                        file.writelines( lines )
+                        with open(my_file, 'w') as file:
+                            file.writelines( lines )
+                    comments[line_to_replace] = txt.get()+"\n"
                     
                 def clickedRate():
 
@@ -1013,8 +982,9 @@ class WishPage(Frame):
                             
                     else:
                         messagebox.showwarning("Warning","Pick a number from 1 to 5")
-        
-                btn = Button(movieList, text="Add comment", command=clicked)
+                    ratings[line_to_replace] = txt1.get()+"\n"
+                    
+                btn = Button(movieList, text="Add comment", command=clickedComment)
                 btn.grid(column=2, row=2)
                 btn = Button(movieList, text= "Add raiting",command=clickedRate)
                 btn.grid(column=2, row=4)
