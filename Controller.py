@@ -306,7 +306,6 @@ class WishPage(Frame):
         header.pack(fill=X)
 
         def updateWishy():
-            print("111111111")
             moviename.configure(text= "1) Title:     " + movies[0])
             moviecomment.configure(text= "Comment:    " + comments[0])
             movierate.configure(text= "Star Rating:     " + ratings[0])
@@ -337,7 +336,6 @@ class WishPage(Frame):
             movie9name.configure(text= "10) Title:     " + movies[9])
             movie9comment.configure(text= "Comment:    " + comments[9])
             movie9rate.configure(text= "Star Rating:     " + ratings[9])
-            print("DOPE")
             movieList.mainloop()
             
         refresh=Button(header,text="Refresh Page", bg='black', fg='orange', command= updateWishy)
@@ -472,530 +470,101 @@ class WishPage(Frame):
         txtid = Entry(movieList,width=10)
         txtid.grid(column=1, row=0)
         
+        def delete():
+            name = int(txtid.get())
+            line_to_replace = (name -1)
+            comment_file = 'savedComment.txt'
+            rating_file = 'savedratings.txt'
+            movie_file = 'savedmovies.txt'
+            
+            #Movie Delete
+            with open(movie_file, 'r') as file:
+                lines = file.readlines()
+                
+            if len(lines) > int(line_to_replace):
+                lines[line_to_replace] = ""
+                with open(movie_file, 'w') as file:                            
+                        file.writelines( lines )
+            movies[line_to_replace] = ""
+            
+            #Rating Delete
+            with open(rating_file, 'r') as file:
+                lines = file.readlines()
+                
+            if len(lines) > int(line_to_replace):
+                lines[line_to_replace] = "N/A \n"
+                with open(rating_file, 'w') as file:                            
+                        file.writelines( lines )
+            ratings[line_to_replace] = "N/A \n"
 
+            #Comment Delete
+            with open(comment_file, 'r') as file:
+                lines = file.readlines()
+                
+            if len(lines) > int(line_to_replace):
+                lines[line_to_replace] = "N/A \n"
+                with open(comment_file, 'w') as file:                            
+                        file.writelines( lines )
+            comments[line_to_replace] = "N/A \n"
 
         def idload():
             name = int(txtid.get())
+              
+            instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
+            instructionComment.grid(column=1, row=1, sticky=W)
+            
+            txt = Entry(movieList,width=10)
+            txt.grid(column=1, row=2)
+            
+            instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
+            instructionrate.grid(column=1, row=3, sticky=W)
+                            
+            txt1 = Entry(movieList,width=10)
+            txt1.grid(column=1, row=4)
+            
         
-            if name == 1:
-                
-                instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
-                instructionComment.grid(column=1, row=1, sticky=W)
-                
-                txt = Entry(movieList,width=10)
-                txt.grid(column=1, row=2)
-                
-                instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
-                instructionrate.grid(column=1, row=3, sticky=W)
-                                
-                txt1 = Entry(movieList,width=10)
-                txt1.grid(column=1, row=4)
-                
-            
-                def clickedComment():
-                    line_to_replace = 0 
-                    my_file = 'savedComment.txt'
+            def clickedComment():
+                line_to_replace = (name -1)
+                my_file = 'savedComment.txt'
 
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                        
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt.get()+"\n"
-                        with open(my_file, 'w') as file:                            
-                                file.writelines( lines )
-                    comments[line_to_replace] = txt.get()+"\n"
-                                                      
-                def clickedRate():
-                    line_to_replace = 0 
-                    my_file = 'savedratings.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                        
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt1.get()+"\n"
-                    if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )  
-                    else:
-                        messagebox.showwarning("Warning","Pick a number from 1 to 5")
-                    ratings[line_to_replace] = txt1.get()+"\n"
-        
-                btn = Button(movieList, text="Add comment", command=clickedComment)
-                btn.grid(column=2, row=2)
-                btn = Button(movieList, text= "Add raiting",command=clickedRate)
-                btn.grid(column=2, row=4)
-                movieList.mainloop()
-                
-            elif name ==2:
-                instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
-                instructionComment.grid(column=1, row=1, sticky=W)
-                
-                txt = Entry(movieList,width=10)
-                txt.grid(column=1, row=2)
-                
-                instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
-                instructionrate.grid(column=1, row=3, sticky=W)
-                
-                
-                txt1 = Entry(movieList,width=10)
-                txt1.grid(column=1, row=4)
-            
-                def clickedComment():
-                    line_to_replace = 1 
-                    my_file = 'savedComment.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt.get()+"\n"
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )    
+                with open(my_file, 'r') as file:
+                    lines = file.readlines()
                     
-                    comments[line_to_replace] = txt.get()+"\n"
-            
-                def clickedRate():
-                 
-                    line_to_replace = 1 
-                    my_file = 'savedratings.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt1.get()+"\n"
-                    if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
-                        with open(my_file, 'w') as file:
+                if len(lines) > int(line_to_replace):
+                    lines[line_to_replace] = txt.get()+"\n"
+                    with open(my_file, 'w') as file:                            
                             file.writelines( lines )
-                            
-                    else:
-                        messagebox.showwarning("Warning","Pick a number from 1 to 5")
-                    ratings[line_to_replace] = txt1.get()+"\n"
+                comments[line_to_replace] = txt.get()+"\n"
+                                                  
+            def clickedRate():
+                line_to_replace = (name -1)
+                my_file = 'savedratings.txt'
+
+                with open(my_file, 'r') as file:
+                    lines = file.readlines()
                     
-                btn = Button(movieList, text="Add comment", command=clickedComment)
-                btn.grid(column=2, row=2)
-                btn = Button(movieList, text= "Add raiting",command=clickedRate)
-                btn.grid(column=2, row=4)
-                movieList.mainloop()
+                if len(lines) > int(line_to_replace):
+                    lines[line_to_replace] = txt1.get()+"\n"
+                if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
+                    with open(my_file, 'w') as file:
+                        file.writelines( lines )  
+                else:
+                    messagebox.showwarning("Warning","Pick a number from 1 to 5")
+                ratings[line_to_replace] = txt1.get()+"\n"
+    
+            btn = Button(movieList, text="Add comment", command=clickedComment)
+            btn.grid(column=2, row=2)
+            btn = Button(movieList, text= "Add raiting",command=clickedRate)
+            btn.grid(column=2, row=4)
+            movieList.mainloop()
                 
-                
-            elif name ==3:
-                instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
-                instructionComment.grid(column=1, row=1, sticky=W)
-                
-                txt = Entry(movieList,width=10)
-                txt.grid(column=1, row=2)
-                
-                instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
-                instructionrate.grid(column=1, row=3, sticky=W)
-                
-                
-                txt1 = Entry(movieList,width=10)
-                txt1.grid(column=1, row=4)
-            
-                def clickedComment():
-                    line_to_replace = 2 
-                    my_file = 'savedComment.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                        
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt.get()+"\n"
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                    comments[line_to_replace] = txt.get()+"\n"
-                    
-                    
-                def clickedRate():
-
-                    line_to_replace = 2 
-                    my_file = 'savedratings.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                        
-
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt1.get()+"\n"
-                    if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                    else:
-                        messagebox.showwarning("Warning","Pick a number from 1 to 5")
-                    ratings[line_to_replace] = txt1.get()+"\n"
-                    
-                    
-                btn = Button(movieList, text="Add comment", command=clickedComment)
-                btn.grid(column=2, row=2)
-                btn = Button(movieList, text= "Add raiting",command=clickedRate)
-                btn.grid(column=2, row=4)
-               
-                movieList.mainloop()
-                
-            elif name ==4:
-                instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
-                instructionComment.grid(column=1, row=1, sticky=W)
-                
-                txt = Entry(movieList,width=10)
-                txt.grid(column=1, row=2)
-                
-                instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
-                instructionrate.grid(column=1, row=3, sticky=W)
-                
-                
-                txt1 = Entry(movieList,width=10)
-                txt1.grid(column=1, row=4)
-            
-                def clickedComment():
-                    line_to_replace = 3 
-                    my_file = 'savedComment.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                        
-
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt.get()+"\n"
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                    comments[line_to_replace] = txt.get()+"\n"
-                
-                def clickedRate():
-
-                    line_to_replace = 3 
-                    my_file = 'savedratings.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                        
-
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt1.get()+"\n"
-                    if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )  
-                    else:
-                        messagebox.showwarning("Warning","Pick a number from 1 to 5")
-                    ratings[line_to_replace] = txt1.get()+"\n"
-                    
-                btn = Button(movieList, text="Add comment", command=clickedComment)
-                btn.grid(column=2, row=2)
-                btn = Button(movieList, text= "Add raiting",command=clickedRate)
-                btn.grid(column=2, row=4)
-                
-                movieList.mainloop()
-                
-            elif name ==5:
-                instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
-                instructionComment.grid(column=1, row=1, sticky=W)
-                
-                txt = Entry(movieList,width=10)
-                txt.grid(column=1, row=2)
-                
-                instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
-                instructionrate.grid(column=1, row=3, sticky=W)
-                
-                
-                txt1 = Entry(movieList,width=10)
-                txt1.grid(column=1, row=4)
-            
-                def clickedComment():
-                    line_to_replace = 4
-                    my_file = 'savedComment.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                        
-
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt.get()+"\n"
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                    comments[line_to_replace] = txt.get()+"\n"
-                
-                def clickedRate():
-                    line_to_replace = 4 
-                    my_file = 'savedratings.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                        
-
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt1.get()+"\n"
-                    if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                    else:
-                        messagebox.showwarning("Warning","Pick a number from 1 to 5")
-                    ratings[line_to_replace] = txt1.get()+"\n"
-                    
-                btnc = Button(movieList, text="Add comment", command=clickedComment)
-                btnc.grid(column=2, row=2)
-                btnr = Button(movieList, text= "Add raiting",command=clickedRate)
-                btnr.grid(column=2, row=4)
-                movieList.mainloop()
-                
-            elif name ==6:
-                instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
-                instructionComment.grid(column=1, row=1, sticky=W)
-                
-                txt = Entry(movieList,width=10)
-                txt.grid(column=1, row=2)
-                
-                instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
-                instructionrate.grid(column=1, row=3, sticky=W)
-                
-                
-                txt1 = Entry(movieList,width=10)
-                txt1.grid(column=1, row=4)
-            
-                def clickedComment():
-                    line_to_replace = 5
-                    my_file = 'savedComment.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt.get()+"\n"
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                    comments[line_to_replace] = txt.get()+"\n"
-                    
-                def clickedRate():
-
-                    line_to_replace = 5 
-                    my_file = 'savedratings.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                
-
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt1.get()+"\n"
-                    if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )    
-                    else:
-                        messagebox.showwarning("Warning","Pick a number from 1 to 5")
-                    ratings[line_to_replace] = txt1.get()+"\n"
-                    
-                btn = Button(movieList, text="Add comment", command=clickedComment)
-                btn.grid(column=2, row=2)
-                btn = Button(movieList, text= "Add raiting",command=clickedRate)
-                btn.grid(column=2, row=4)
-                movieList.mainloop()
-                
-            elif name ==7:
-                instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
-                instructionComment.grid(column=1, row=1, sticky=W)
-                
-                txt = Entry(movieList,width=10)
-                txt.grid(column=1, row=2)
-                
-                instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
-                instructionrate.grid(column=1, row=3, sticky=W)
-                
-                
-                txt1 = Entry(movieList,width=10)
-                txt1.grid(column=1, row=4)
-            
-                def clickedComment():
-                    line_to_replace = 6 
-                    my_file = 'savedComment.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt.get()+"\n"
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                    comments[line_to_replace] = txt.get()+"\n"
-                    
-                def clickedRate():
-
-                    line_to_replace = 6 
-                    my_file = 'savedratings.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                        
-
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt1.get()+"\n"
-                    if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                            
-                    else:
-                        messagebox.showwarning("Warning","Pick a number from 1 to 5")
-                    ratings[line_to_replace] = txt1.get()+"\n"
-                    
-                btn = Button(movieList, text="Add comment", command=clickedComment)
-                btn.grid(column=2, row=2)
-                btn = Button(movieList, text= "Add raiting",command=clickedRate)
-                btn.grid(column=2, row=4)
-                movieList.mainloop()
-                
-            elif name ==8:
-                instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
-                instructionComment.grid(column=1, row=1, sticky=W)
-                
-                txt = Entry(movieList,width=10)
-                txt.grid(column=1, row=2)
-                
-                instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
-                instructionrate.grid(column=1, row=3, sticky=W)
-                
-                
-                txt1 = Entry(movieList,width=10)
-                txt1.grid(column=1, row=4)
-            
-                def clickedComment():
-                    line_to_replace = 7 
-                    my_file = 'savedComment.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt.get()+"\n"
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                    comments[line_to_replace] = txt.get()+"\n"
-                    
-                def clickedRate():                    
-                    line_to_replace = 7 
-                    my_file = 'savedratings.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                
-
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt1.get()+"\n"
-                    if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                            
-                    else:
-                        messagebox.showwarning("Warning","Pick a number from 1 to 5")
-                    ratings[line_to_replace] = txt1.get()+"\n"
-                    
-                btn = Button(movieList, text="Add comment", command=clickedComment)
-                btn.grid(column=2, row=2)
-                btn = Button(movieList, text= "Add raiting",command=clickedRate)
-                btn.grid(column=2, row=4)
-                movieList.mainloop()
-                
-            elif name ==9:
-                instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
-                instructionComment.grid(column=1, row=1, sticky=W)
-                
-                txt = Entry(movieList,width=10)
-                txt.grid(column=1, row=2)
-                
-                instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
-                instructionrate.grid(column=1, row=3, sticky=W)
-                
-                
-                txt1 = Entry(movieList,width=10)
-                txt1.grid(column=1, row=4)
-            
-                def clickedComment():
-                    line_to_replace = 8 
-                    my_file = 'savedComment.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt.get()+"\n"
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                    comments[line_to_replace] = txt.get()+"\n"
-                    
-                def clickedRate():
-                    line_to_replace = 8 
-                    my_file = 'savedratings.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                        
-
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt1.get()+"\n"
-                    if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                            
-                    else:
-                        messagebox.showwarning("Warning","Pick a number from 1 to 5")
-                    ratings[line_to_replace] = txt1.get()+"\n"
-                    
-                btn = Button(movieList, text="Add comment", command=clickedComment)
-                btn.grid(column=2, row=2)
-                btn = Button(movieList, text= "Add raiting",command=clickedRate)
-                btn.grid(column=2, row=4)
-                movieList.mainloop()
-                
-            elif name ==10:
-                instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
-                instructionComment.grid(column=1, row=1, sticky=W)
-                
-                txt = Entry(movieList,width=10)
-                txt.grid(column=1, row=2)
-                
-                instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
-                instructionrate.grid(column=1, row=3, sticky=W)
-                
-                
-                txt1 = Entry(movieList,width=10)
-                txt1.grid(column=1, row=4)
-            
-                def clickedComment():
-                    line_to_replace = 9 
-                    my_file = 'savedComment.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt.get()+"\n"
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                    comments[line_to_replace] = txt.get()+"\n"
-                    
-                def clickedRate():
-
-                    line_to_replace = 9 
-                    my_file = 'savedratings.txt'
-
-                    with open(my_file, 'r') as file:
-                        lines = file.readlines()
-
-
-                    if len(lines) > int(line_to_replace):
-                        lines[line_to_replace] = txt1.get()+"\n"
-                    if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
-                        with open(my_file, 'w') as file:
-                            file.writelines( lines )
-                            
-                    else:
-                        messagebox.showwarning("Warning","Pick a number from 1 to 5")
-                    ratings[line_to_replace] = txt1.get()+"\n"
-                    
-                btn = Button(movieList, text="Add comment", command=clickedComment)
-                btn.grid(column=2, row=2)
-                btn = Button(movieList, text= "Add raiting",command=clickedRate)
-                btn.grid(column=2, row=4)
-                movieList.mainloop()
-                
-            else: 
-                print("Please enter a movie ID between 1-10")
+           
                 
         btnid = Button(movieList, text="Movie ID", command=idload)
         btnid.grid(column=2, row=0)  
-
+        
+        btndel = Button(movieList, text="Delete Entry", command=delete)
+        btndel.grid(column=3, row=0)  
 
         lbl_footer = Label(self, text="customersupport@acme.com         Tel:01632 960625", relief=SUNKEN, anchor='s',bg='black', fg='white', bd=0)
         lbl_footer.pack(side=BOTTOM, fill=X)
