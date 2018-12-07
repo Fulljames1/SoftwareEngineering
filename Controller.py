@@ -498,20 +498,20 @@ class WishPage(Frame):
                 lines = file.readlines()
                 
             if len(lines) > int(line_to_replace):
-                lines[line_to_replace] = "N/A \n"
+                lines[line_to_replace] = ""
                 with open(rating_file, 'w') as file:                            
                         file.writelines( lines )
-            ratings[line_to_replace] = "N/A \n"
+            ratings[line_to_replace] = ""
 
             #Comment Delete
             with open(comment_file, 'r') as file:
                 lines = file.readlines()
                 
             if len(lines) > int(line_to_replace):
-                lines[line_to_replace] = "N/A \n"
+                lines[line_to_replace] = ""
                 with open(comment_file, 'w') as file:                            
                         file.writelines( lines )
-            comments[line_to_replace] = "N/A \n"
+            comments[line_to_replace] = ""
 
         def idload():
             name = int(txtid.get())
