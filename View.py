@@ -130,3 +130,27 @@ def infoPageLayout(containerlist):
     
 def printInfoMovies(films):
     print(films)
+    
+def ModelLayout(instance, StartPage):
+    l = PanedWindow(instance, bg='black')
+    l.pack(fill=X)
+    
+    lbl_logo = Label(l, text="ACME", font=("Arial Black", "30", "bold"), bg='black', fg='orange')
+    lbl_logo.pack(pady=10, side=LEFT)
+    
+    header = PanedWindow(instance, orient=HORIZONTAL, bg='black')
+    header.pack(fill=X)
+    
+    movieList = PanedWindow(instance, orient=HORIZONTAL, bg='black')
+    movieList.pack(fill='both', expand=True)
+    
+    lbl_footer = Label(instance, text="customersupport@acme.com         Tel:01632 960625", relief=SUNKEN, anchor='s',bg='black', fg='white', bd=0)
+    lbl_footer.pack(side=BOTTOM, fill=X)
+    return header, l, movieList
+
+def loadView(movieList):
+    instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
+    instructionComment.grid(column=1, row=1, sticky=W)
+    
+    instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
+    instructionrate.grid(column=1, row=3, sticky=W)

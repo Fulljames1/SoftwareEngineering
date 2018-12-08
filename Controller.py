@@ -89,9 +89,11 @@ class StartPage(Frame):
             comments.clear()
             for c in comLines: # looping through the movie names list
                 comments.append(c) # and appending them to the global list "movies"
+            comments.append(' ')
             ratings.clear()
             for r in ratLines: # looping through the movie names list
                 ratings.append(r) # and appending them to the global list "movies"
+            ratings.append(' ')
             comTxt.close()
             ratTxt.close()
             print(movies)
@@ -145,9 +147,11 @@ class SearchPage(Frame):
                 comments.clear()
                 for c in comLines: # looping through the movie names list
                     comments.append(c) # and appending them to the global list "movies"
+                comments.append(' ')
                 ratings.clear()
                 for r in ratLines: # looping through the movie names list
                     ratings.append(r) # and appending them to the global list "movies"
+                ratings.append(' ')
                 comTxt.close()
                 ratTxt.close()
                 print(movies)
@@ -240,9 +244,11 @@ class InfoPage(Frame):
             comments.clear()
             for c in comLines: # looping through the movie names list
                 comments.append(c) # and appending them to the global list "movies"
+            comments.append(' ')
             ratings.clear()
             for r in ratLines: # looping through the movie names list
                 ratings.append(r) # and appending them to the global list "movies"
+            ratings.append(' ')
             comTxt.close()
             ratTxt.close()
             print(movies)
@@ -299,17 +305,10 @@ class WishPage(Frame):
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
 
-        l = PanedWindow(self, bg='black')
-        l.pack(fill=X)
-    
+        head, l, movieList = View.ModelLayout(self, StartPage)
+        
         home = Button(l, text='Home', command=lambda: controller.show_frame(StartPage), font=("Arial", "8", "italic"), width=5, height=2, bg='black', fg='orange', highlightcolor='orange')
         home.pack(side=RIGHT, anchor='ne')
-
-        lbl_logo = Label(l, text="ACME", font=("Arial Black", "30", "bold"), bg='black', fg='orange')
-        lbl_logo.pack(pady=10, side=LEFT)
-
-        header = PanedWindow(self, orient=HORIZONTAL, bg='black')
-        header.pack(fill=X)
 
         def updateWishy():
             moviename.configure(text= "1) Title:     " + movies[0])
@@ -344,7 +343,7 @@ class WishPage(Frame):
             movie9rate.configure(text= "Star Rating:     " + ratings[9])
             movieList.mainloop()
             
-        refresh=Button(header,text="Refresh Page", bg='black', fg='orange', command= updateWishy)
+        refresh=Button(head,text="Refresh Page", bg='black', fg='orange', command= updateWishy)
         refresh.pack(side=RIGHT)
         
         Titleline1 = linecache.getline("savedmovies.txt", 1)
@@ -379,9 +378,6 @@ class WishPage(Frame):
         Commentline8 = linecache.getline("savedComment.txt", 8)
         Commentline9 = linecache.getline("savedComment.txt", 9)
         Commentline10 = linecache.getline("savedComment.txt", 10)
-        
-        movieList = PanedWindow(self, orient=HORIZONTAL, bg='black')
-        movieList.pack(fill='both', expand=True)
         
         #movieid = Label(movieList, text="ID:       " + subMenu[0] [0], bg='black', fg='white')
        # movieid.grid(column=0, row=5, sticky=W)
@@ -479,83 +475,34 @@ class WishPage(Frame):
         def delete():
             name = int(txtid.get())
             line_to_replace = (name -1)
-            comment_file = 'savedComment.txt'
-            rating_file = 'savedratings.txt'
-            movie_file = 'savedmovies.txt'
-            
+           
+            Model.delete(line_to_replace)
             #Movie Delete
-            with open(movie_file, 'r') as file:
-                lines = file.readlines()
-                
-            if len(lines) > int(line_to_replace):
-                lines[line_to_replace] = ""
-                with open(movie_file, 'w') as file:                            
-                        file.writelines( lines )
             movies[line_to_replace] = ""
-            
             #Rating Delete
-            with open(rating_file, 'r') as file:
-                lines = file.readlines()
-                
-            if len(lines) > int(line_to_replace):
-                lines[line_to_replace] = ""
-                with open(rating_file, 'w') as file:                            
-                        file.writelines( lines )
             ratings[line_to_replace] = ""
-
             #Comment Delete
-            with open(comment_file, 'r') as file:
-                lines = file.readlines()
-                
-            if len(lines) > int(line_to_replace):
-                lines[line_to_replace] = ""
-                with open(comment_file, 'w') as file:                            
-                        file.writelines( lines )
             comments[line_to_replace] = ""
 
         def idload():
             name = int(txtid.get())
               
-            instructionComment = Label(movieList, text="Please add a comment", bg='black', fg='white')
-            instructionComment.grid(column=1, row=1, sticky=W)
+            View.loadView(movieList)
             
             txt = Entry(movieList,width=10)
             txt.grid(column=1, row=2)
-            
-            instructionrate = Label(movieList, text="Please rate the movie from 1 to 5", bg='black', fg='white')
-            instructionrate.grid(column=1, row=3, sticky=W)
-                            
+           
             txt1 = Entry(movieList,width=10)
             txt1.grid(column=1, row=4)
             
-        
             def clickedComment():
                 line_to_replace = (name -1)
-                my_file = 'savedComment.txt'
-
-                with open(my_file, 'r') as file:
-                    lines = file.readlines()
-                    
-                if len(lines) > int(line_to_replace):
-                    lines[line_to_replace] = txt.get()+"\n"
-                    with open(my_file, 'w') as file:                            
-                            file.writelines( lines )
+                Model.addComment(line_to_replace, txt.get())
                 comments[line_to_replace] = txt.get()+"\n"
                                                   
             def clickedRate():
                 line_to_replace = (name -1)
-                my_file = 'savedratings.txt'
-
-                with open(my_file, 'r') as file:
-                    lines = file.readlines()
-                    
-                if len(lines) > int(line_to_replace):
-                    lines[line_to_replace] = txt1.get()+"\n"
-                if txt1.get() == "1" or txt1.get() == "2" or txt1.get() == "3" or txt1.get() == "4" or txt1.get() == "5":
-                    with open(my_file, 'w') as file:
-                        file.writelines( lines )  
-                else:
-                    messagebox.showwarning("Warning","Pick a number from 1 to 5")
+                Model.addRating(line_to_replace, txt1.get())
                 ratings[line_to_replace] = txt1.get()+"\n"
     
             btn = Button(movieList, text="Add comment", command=clickedComment)
@@ -572,10 +519,6 @@ class WishPage(Frame):
         btndel = Button(movieList, text="Delete Entry", command=delete)
         btndel.grid(column=3, row=0)  
 
-        lbl_footer = Label(self, text="customersupport@acme.com         Tel:01632 960625", relief=SUNKEN, anchor='s',bg='black', fg='white', bd=0)
-        lbl_footer.pack(side=BOTTOM, fill=X)
-        
-        
 app = App()
 app.mainloop()
 print(id(app), app.spam())
