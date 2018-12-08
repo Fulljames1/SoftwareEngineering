@@ -118,7 +118,7 @@ class StartPage(Frame):
         View.startPageLayout(frame)
         
         # button for TMDb
-        btn_IMDb = Button(frame, text="IMDb", bg='white', fg='black', anchor=CENTER, command=lambda: controller.show_frame(SearchPage),highlightcolor='orange')
+        btn_IMDb = Button(frame, text="TMDb", bg='white', fg='black', anchor=CENTER, command=lambda: controller.show_frame(SearchPage),highlightcolor='orange')
         btn_IMDb.pack(padx=10, pady=2)
         btn_IMDb.bind("<Button-1>", dbPickIMDb)
 
