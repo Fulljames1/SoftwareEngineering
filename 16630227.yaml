@@ -1,0 +1,153 @@
+#https://github.com/GoogleCloudPlatform/deploymentmanager-samples/tree/master/google/resource-snippets/dns-v1
+#configVersion: v1alpha
+
+imports:
+#- path: key.pem
+#- path: crt.pem
+#- path: csr.pem
+#- path: ssl.py
+#- path: IAM-role.jinja
+#- path: kms.jinja
+- path: dns.jinja
+- path: vm-template.jinja
+- path: vm-template-2.jinja
+#- path: sql-template-1.jinja
+#- path: sql-template-2.jinja
+- path: network-template.jinja
+- path: firewall-template.jinja
+- path: compute-engine-template.jinja
+#- path: sql-template.jinja
+#- path: dataproc.jinja
+- path: web-servers-template.jinja
+#- path: sql-servers-template.jinja
+- path: vpn-router.jinja
+- path: service-account.jinja
+#- path: LoadBalancer.jinja
+- path: cloud-storage.jinja
+- path: bigquery.jinja
+- path: pub-sub.jinja
+resources:
+#- name: example
+#  type: ssl.py
+#  properties:
+#    key: key.pem
+#    crt: crt.pem
+#    csr: csr.pem
+#- name: role
+#  type: IAM-role.jinja
+#  properties:
+#    description: My role
+#    isOrgnizationRole: false
+#    orgnizationId: ORGNIZATION_ID
+#- name: kms
+#  type: kms.jinja
+#  properties:
+#    region: europe-west2
+#    user: ananke.iam@gmail.com
+- name: cloud-storage
+  type: cloud-storage.jinja #Deploys nearline storage
+- name: compute-engine-setup
+  type: compute-engine-template.jinja #Calls compute engine temoplate which calls vm1, vm2, service account, and debian vm
+- name: vm-network
+  type: network-template.jinja #vm-network deploys network, and subnets (public and private)
+- name: my-cloud-router
+  type: vpn-router.jinja #Allows for VPN tunnels to the network for external staff
+- name: vm-firewall
+  type: firewall-template.jinja #Firewall for security 
+#- name: storage-sql
+#  type: sql-template.jinja #Deploys SQL instances and databases for storage 
+#- name: dataproc
+#  type: dataproc.jinja #Deploys dataproc for data analysis on data collected
+- name: dns
+  type: dns.jinja #Deploys DNS 
+#- name: vm-loadbalancer
+#  type: LoadBalancer.jinja #Load balancer to manage traffic
+- name: big-query
+  type: bigquery.jinja
+- name: pubsub
+  type: pub-sub.jinja
+  properties:
+    ackDeadlineSeconds: 4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#- name: vm-1
+ # type: vm-template.jinja
+  
+  
+
+
+#- type: cmp3747m-fulljames-16630227/header-iam-v1-assessment-deployment:projects.serviceAccounts
+#  name: test-account
+#  properties:
+#    accountId: quequiereusted
+#    displayName: Matarilerilero
+#  accessControl:
+#    gcpIamPolicy:
+#      bindings:
+#      - role: roles/viewer
+#        members:
+#        - "user:ananke.iam@gmail.com"
+
+
+
+
+
+
+#- name: int-lb
+ # type: internal-load-balancer.jinja
+  #properties:
+   # groups:
+   # - https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/zones/europe-west2-b/instanceGroups/GROUP_NAME1
+   # - https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/zones/europe-west2-a/instanceGroups/GROUP_NAME2
+   # app-port: 8080
+   # port: 8080
+   # zone: europe-west2-a
+
+
+
+
+
+    
+#- name: container-set-up
+#  type: containers-testing.jinja

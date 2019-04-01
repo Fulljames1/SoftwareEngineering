@@ -1,0 +1,23 @@
+resources:
+- name: &SA_NAME my-vm-access
+  type: service-account.jinja #Call service accounts 
+#- name: web-vm-1
+#  type: vm-template.jinja #Deploy first VM
+#  properties:
+#    serviceAccountId: *SA_NAME #Attach service account to deployment
+#- name: web-vm-2
+#  type: vm-template-2.jinja
+#  properties:
+#    serviceAccountId: *SA_NAME #Attach service account to deployment
+#- name: sql-vm-1
+#  type: sql-template-1.jinja #Deploy first VM
+#  properties:
+#    serviceAccountId: *SA_NAME #Attach service account to deployment
+#- name: sql-vm-2
+#  type: sql-template-2.jinja #Deploy first VM
+#  properties:
+#    serviceAccountId: *SA_NAME #Attach service account to deployment
+- name: web-servers
+  type: web-servers-template.jinja #Deploy debian vms
+#- name: sql-servers
+#  type: sql-servers-template.jinja #Deploy debian vms

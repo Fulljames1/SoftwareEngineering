@@ -1,0 +1,63 @@
+#https://cloud.google.com/compute/docs/instance-templates/create-instance-templates
+#https://stackoverflow.com/questions/53787807/create-instance-template-based-on-an-exported-image
+#https://stackoverflow.com/questions/36701516/google-cloud-create-image-from-instance
+
+
+resources:
+- name: web-template #template for web vms
+  type: compute.v1.instanceTemplate
+  properties:
+    properties:
+      description: Bitnami VM's
+      tags:
+        items:
+          - webserver
+      zone: europe-west2-c #Deployment in london
+      machineType: n1-standard-2 #Machine suited to business size and demand
+      canIpForward: false
+      disks:
+      - deviceName: boot
+        type: PERSISTENT #Persistent storage     
+        boot: true
+        autoDelete: true
+        initializeParams:
+          #https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images#bundle_image
+          sourceImage: projects/cmp3747m-fulljames-16630227/global/images/test-image #Deploys the master bitnami VM
+      networkInterfaces:
+      - network: $(ref.mobileapp-network.selfLink)
+        subnetwork: $(ref.vm-subnet-public.selfLink) #Deploy in public subnet
+        accessConfigs:
+          - name: External NAT
+            type: ONE_TO_ONE_NAT
+      scheduling:
+          onHostMaintenance: MIGRATE
+          automaticRestart: true
+
+- name: web-ins-group #Group instances
+  type: compute.v1.instanceGroup
+  properties:
+    namedPorts:
+    - name: http #Declare port
+      port: 80
+    network: $(ref.mobileapp-network.selfLink) # Assign instances to network
+    zone: europe-west2-c
+    size: 3 #deploy 3
+    subnetwork: $(ref.vm-subnet-public.selfLink) # Assign instances to public facing subnetwork       
+
+   #group manager for debian instances
+- name: web-manager 
+  type: compute.v1.instanceGroupManager
+  properties:
+    baseInstanceName: web
+    instanceGroup: $(ref.web-ins-group.selfLink)
+    instanceTemplate: $(ref.web-template.selfLink) #refrence the template for a debian vm
+    targetSize: 2
+    zone: europe-west2-c
+    
+- name: web-as #autoscaler for debian instances 
+  type: compute.v1.autoscaler
+  properties:
+    zone: europe-west2-c
+    target: $(ref.web-manager.selfLink)
+    autoscalingPolicy: #Autoscaling for scalability
+      maxNumReplicas: 2
